@@ -253,7 +253,7 @@ def test_session5_temp_converter_temp_given_in():
         Test temp_converter function for incorrect value to temp_given_in keyword argument"""
     with pytest.raises(ValueError, match=r".*Only f or c is allowed*"):
         session5.temp_converter(10,temp_given_in='K')
-    with pytest.raises(TypeError, match=r".*Charcater string expected*"):
+    with pytest.raises(TypeError, match=r".*Character string expected*"):
         session5.temp_converter(10,temp_given_in=1+2j)
 
 def test_session5_temp_converter_temp_values_in_celsius():
@@ -308,17 +308,17 @@ def test_session5_speed_converter_speed():
 def test_session5_speed_converter_dist():
     """ DON'T TOUCH THIS FUNCTION \
         Test speed_converter function for incorrect type of value for dist keyword argument"""
-    with pytest.raises(TypeError, match=r".*Charcater string expected for distance unit*"):
+    with pytest.raises(TypeError, match=r".*Character string expected for distance unit*"):
         session5.speed_converter(10,dist=10)
-    with pytest.raises(TypeError, match=r".*Charcater string expected for distance unit*"):
+    with pytest.raises(TypeError, match=r".*Character string expected for distance unit*"):
         session5.speed_converter(10,dist=1+2j)
 
 def test_session5_speed_converter_time():
     """ DON'T TOUCH THIS FUNCTION \
         Test speed_converter function for incorrect type of value for time keyword argument"""
-    with pytest.raises(TypeError, match=r".*Charcater string expected*"):
+    with pytest.raises(TypeError, match=r".*Character string expected*"):
         session5.speed_converter(10,time=10)
-    with pytest.raises(TypeError, match=r".*Charcater string expected*"):
+    with pytest.raises(TypeError, match=r".*Character string expected*"):
         session5.speed_converter(10,time=1+2j)
 
 def test_session5_speed_converter_speed_allowed_values():
@@ -356,6 +356,12 @@ def test_session5_speed_converter_unwanted_args():
 def test_session5_speed_converter_output_km_to():
     """ DON'T TOUCH THIS FUNCTION \
         Test speed_converter function for output with multiple inputs from km/(x), x can be ms/s/min/hr/day"""
+    print(session5.speed_converter(36000,dist='KM',time='MS'), session5.speed_converter(36000,dist='KM',time='MS') == 0)
+    print(session5.speed_converter(36000,dist='KM',time='S'), session5.speed_converter(36000,dist='KM',time='S') == 10)
+    print(session5.speed_converter(6000,dist='KM',time='MIN'), session5.speed_converter(6000,dist='KM',time='MIN') == 100)
+    print(session5.speed_converter(100,dist='KM',time='HR'), session5.speed_converter(100,dist='KM',time='HR') == 100)
+    print(session5.speed_converter(100,dist='KM',time='DAY'), session5.speed_converter(100,dist='KM',time='DAY') == 2400)
+    
     assert session5.speed_converter(36000,dist='KM',time='MS') == 0, "speed_converter is not working as expected"
     assert session5.speed_converter(36000,dist='KM',time='S') == 10, "speed_converter is not working as expected"
     assert session5.speed_converter(6000,dist='KM',time='MIN') == 100, "speed_converter is not working as expected"
@@ -374,6 +380,12 @@ def test_session5_speed_converter_output_m_to():
 def test_session5_speed_converter_output_ft_to():
     """ DON'T TOUCH THIS FUNCTION \
         Test speed_converter function for output with multiple inputs from ft/(x), x can be ms/s/min/hr/day"""
+    print(speed_converter(36000,dist='FT',time='MS'), 33)
+    print(speed_converter(36000,dist='FT',time='S'), 32808)
+    print(speed_converter(6000,dist='FT',time='MIN'), 328084)
+    print(speed_converter(100,dist='FT',time='HR'), 328084)
+    print(speed_converter(100,dist='FT',time='DAY'), 7874010)
+
     assert session5.speed_converter(36000,dist='FT',time='MS') == 33, "speed_converter is not working as expected"
     assert session5.speed_converter(36000,dist='FT',time='S') == 32808, "speed_converter is not working as expected"
     assert session5.speed_converter(6000,dist='FT',time='MIN') == 328084, "speed_converter is not working as expected"
